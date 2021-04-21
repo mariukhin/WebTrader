@@ -1,0 +1,11 @@
+.undoRedoButton {
+  padding: 0;
+  border: none;
+  background-color: inherit;
+}
+
+.undoRedoButton:disabled .ant-btn,
+.undoRedoButton:disabled .ant-btn:hover,
+.undoRedoButton:disabled .ant-btn:focus {
+  cursor: not-allowed;
+}
