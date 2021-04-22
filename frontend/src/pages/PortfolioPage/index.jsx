@@ -2,14 +2,14 @@ import React from 'react';
 import PageWithTabs from 'Components/PageWithTabs';
 import { Wrapper, Container } from './styledComponents';
 
-const MainPage = () => {
+const PortfolioPage = () => {
   return (
-    <PageWithTabs pageNum={1}>
+    <PageWithTabs pageKey={3}>
       <Wrapper>
-        <Container>MainPage</Container>
+        <Container>PortfolioPage</Container>
       </Wrapper>
     </PageWithTabs>
   );
 };
 
-export default MainPage;
+export default PortfolioPage;
