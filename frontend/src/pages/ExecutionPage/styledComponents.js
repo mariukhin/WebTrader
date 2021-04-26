@@ -6,14 +6,14 @@ const { Text } = Typography;
 export const Wrapper = styled.main`
   display: grid;
   grid-template-rows: auto 1fr auto;
-  height: 80vh;
+  height: 90vh;
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
-  height: 80vh;
+  height: 90vh;
 `;
 
 export const ShowTradersCheckbox = styled(Checkbox)`

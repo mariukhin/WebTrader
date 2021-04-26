@@ -1,6 +1,6 @@
 import { Table, Select } from 'antd';
 import moment from 'moment';
-import React from 'react';
+import React, { useState } from 'react';
 import PageWithTabs from 'Components/PageWithTabs';
 import {
   Wrapper,
@@ -15,7 +15,92 @@ const { Option } = Select;
 
 const dataSource = [
   {
-    Id: '1',
+    key: '1',
+    TimeStamp: Date.now(),
+    Execute: true,
+    Product: 'APD US Equity_US_USD_USD',
+    Ticker: 'APD',
+    Exchange: 'US',
+    Currency: 'USD',
+    OrderType: 'LIMIT',
+    Side: 'BUY',
+    TimeInForce: 'GTC',
+    Qty: 1,
+    Price: 284.1,
+    OrderStatus: 'UNKNOWN',
+    OrderText: 'Not in market',
+    AlgoStrategy: 'NONE',
+  },
+  {
+    key: '2',
+    TimeStamp: Date.now(),
+    Execute: true,
+    Product: 'APD US Equity_US_USD_USD',
+    Ticker: 'APD',
+    Exchange: 'US',
+    Currency: 'USD',
+    OrderType: 'MARKET',
+    Side: 'SELL',
+    TimeInForce: 'GTC',
+    Qty: 1,
+    Price: 0,
+    OrderStatus: 'UNKNOWN',
+    OrderText: 'Not in market',
+    AlgoStrategy: 'NONE',
+  },
+  {
+    key: '3',
+    TimeStamp: Date.now(),
+    Execute: true,
+    Product: 'APD US Equity_US_USD_USD',
+    Ticker: 'APD',
+    Exchange: 'US',
+    Currency: 'USD',
+    OrderType: 'LIMIT',
+    Side: 'SELL',
+    TimeInForce: 'GTC',
+    Qty: 1,
+    Price: 284.1,
+    OrderStatus: 'UNKNOWN',
+    OrderText: 'Not in market',
+    AlgoStrategy: 'NONE',
+  },
+  {
+    key: '4',
+    TimeStamp: Date.now(),
+    Execute: true,
+    Product: 'APD US Equity_US_USD_USD',
+    Ticker: 'APD',
+    Exchange: 'US',
+    Currency: 'USD',
+    OrderType: 'MARKET',
+    Side: 'BUY',
+    TimeInForce: 'GTC',
+    Qty: 1,
+    Price: 0,
+    OrderStatus: 'UNKNOWN',
+    OrderText: 'Not in market',
+    AlgoStrategy: 'NONE',
+  },
+  {
+    key: '5',
+    TimeStamp: Date.now(),
+    Execute: true,
+    Product: 'APD US Equity_US_USD_USD',
+    Ticker: 'APD',
+    Exchange: 'US',
+    Currency: 'USD',
+    OrderType: 'LIMIT',
+    Side: 'BUY',
+    TimeInForce: 'GTC',
+    Qty: 1,
+    Price: 284.1,
+    OrderStatus: 'UNKNOWN',
+    OrderText: 'Not in market',
+    AlgoStrategy: 'NONE',
+  },
+  {
+    key: '6',
     TimeStamp: Date.now(),
     Execute: true,
     Product: 'APD US Equity_US_USD_USD',
@@ -38,30 +123,36 @@ const columns = [
     title: 'Product Name',
     dataIndex: 'Product',
     key: 'Product',
+    width: 220,
   },
   {
     title: 'Ticker',
     dataIndex: 'Ticker',
     key: 'Ticker',
+    align: 'center',
+    width: 80,
   },
   {
     title: 'Exchange',
     dataIndex: 'Exchange',
     key: 'Exchange',
     align: 'center',
+    width: 100,
   },
   {
     title: 'Currency',
     dataIndex: 'Currency',
     key: 'Currency',
     align: 'center',
+    width: 100,
   },
   {
     title: 'Order Type',
     dataIndex: 'OrderType',
     key: 'OrderType',
+    width: 130,
     render: type => (
-      <Select defaultValue={type} style={{ width: 120 }}>
+      <Select defaultValue={type} style={{ width: 98 }}>
         <Option value="market">MARKET</Option>
         <Option value="limit">LIMIT</Option>
       </Select>
@@ -71,6 +162,7 @@ const columns = [
     title: 'Order Status',
     dataIndex: 'OrderStatus',
     key: 'OrderStatus',
+    width: 110,
   },
   {
     title: 'Order Text',
@@ -97,6 +189,7 @@ const columns = [
     dataIndex: 'Qty',
     key: 'Qty',
     align: 'center',
+    width: 60,
   },
   {
     title: 'Price',
@@ -108,25 +201,18 @@ const columns = [
     title: 'Date',
     dataIndex: 'TimeStamp',
     key: 'TimeStamp',
+    width: 150,
     render: date => <span>{moment(date).format('YYYY/MM/DD hh:mm:ss')}</span>,
   },
 ];
 
 const ExecutionPage = () => {
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        'selectedRows: ',
-        selectedRows,
-      );
-    },
-    getCheckboxProps: record => ({
-      disabled: record.name === 'Disabled User',
-      // Column configuration not to be checked
-      name: record.name,
-    }),
-  };
+  // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+
+  // const onSelectChange = newSelectedRowKeys => {
+  //   console.log('selectedRowKeys changed: ', newSelectedRowKeys);
+  //   setSelectedRowKeys({ newSelectedRowKeys });
+  // };
 
   return (
     <PageWithTabs pageKey={2}>
@@ -142,11 +228,13 @@ const ExecutionPage = () => {
           <Table
             rowSelection={{
               type: 'checkbox',
-              ...rowSelection,
+              // selectedRowKeys,
+              // onChange: onSelectChange,
             }}
             pagination={false}
             columns={columns}
             dataSource={dataSource}
+            scroll={{ y: 380 }}
           />
         </Container>
       </Wrapper>
