@@ -16,12 +16,14 @@ export const routePaths = {
 };
 
 const getRoutes = () => {
-  return (
+  return(
     <Switch>
       <Route
         exact
-        path="/"
-        render={props => <Redirect to={routePaths.main} />}
+        path='/'
+        render={props =>
+          <Redirect to={routePaths.main} />
+        }
       />
       <Route
         exact
