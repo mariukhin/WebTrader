@@ -14,7 +14,6 @@ import getRoutes from 'Routes';
 
 import { PageLoader } from 'Components';
 
-
 const App = () => {
   return <App.Wrapper>{getRoutes()}</App.Wrapper>;
 };
@@ -26,11 +25,11 @@ App.Wrapper = styled.div`
 render(
   <Suspense fallback={<PageLoader />}>
     {/* <Provider store={store}> */}
-      {/* <PersistGate loading={<div>Loading...</div>} persistor={persistor}> */}
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      {/* </PersistGate>
+    {/* <PersistGate loading={<div>Loading...</div>} persistor={persistor}> */}
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+    {/* </PersistGate>
     </Provider> */}
   </Suspense>,
   document.getElementById('root'),
