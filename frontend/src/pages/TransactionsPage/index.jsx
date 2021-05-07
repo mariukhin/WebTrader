@@ -180,6 +180,7 @@ const columns = [
   },
 ];
 
+
 const TransactionsPage = () => {
   return (
     <PageWithTabs pageKey={4}>
