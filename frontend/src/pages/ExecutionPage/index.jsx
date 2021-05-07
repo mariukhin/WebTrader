@@ -1,6 +1,7 @@
-import { Table, Select } from 'antd';
+import { Table, Select, Form } from 'antd';
 import moment from 'moment';
 import React, { useState } from 'react';
+import * as R from 'ramda';
 import PageWithTabs from 'Components/PageWithTabs';
 import {
   Wrapper,
@@ -118,101 +119,109 @@ const dataSource = [
   },
 ];
 
-const columns = [
-  {
-    title: 'Product Name',
-    dataIndex: 'Product',
-    key: 'Product',
-    width: 220,
-  },
-  {
-    title: 'Ticker',
-    dataIndex: 'Ticker',
-    key: 'Ticker',
-    align: 'center',
-    width: 80,
-  },
-  {
-    title: 'Exchange',
-    dataIndex: 'Exchange',
-    key: 'Exchange',
-    align: 'center',
-    width: 100,
-  },
-  {
-    title: 'Currency',
-    dataIndex: 'Currency',
-    key: 'Currency',
-    align: 'center',
-    width: 100,
-  },
-  {
-    title: 'Order Type',
-    dataIndex: 'OrderType',
-    key: 'OrderType',
-    width: 130,
-    render: type => (
-      <Select defaultValue={type} style={{ width: 98 }}>
-        <Option value="market">MARKET</Option>
-        <Option value="limit">LIMIT</Option>
-      </Select>
-    ),
-  },
-  {
-    title: 'Order Status',
-    dataIndex: 'OrderStatus',
-    key: 'OrderStatus',
-    width: 110,
-  },
-  {
-    title: 'Order Text',
-    dataIndex: 'OrderText',
-    key: 'OrderText',
-  },
-  {
-    title: 'Algo Strategy',
-    dataIndex: 'AlgoStrategy',
-    key: 'AlgoStrategy',
-  },
-  {
-    title: 'Side',
-    dataIndex: 'Side',
-    key: 'Side',
-  },
-  {
-    title: 'Time In Force',
-    dataIndex: 'TimeInForce',
-    key: 'TimeInForce',
-  },
-  {
-    title: 'Qty',
-    dataIndex: 'Qty',
-    key: 'Qty',
-    align: 'center',
-    width: 60,
-  },
-  {
-    title: 'Price',
-    dataIndex: 'Price',
-    key: 'Price',
-    render: price => <PriceInput value={price} />,
-  },
-  {
-    title: 'Date',
-    dataIndex: 'TimeStamp',
-    key: 'TimeStamp',
-    width: 150,
-    render: date => <span>{moment(date).format('YYYY/MM/DD hh:mm:ss')}</span>,
-  },
-];
-
 const ExecutionPage = () => {
-  // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const [form] = Form.useForm();
+  const [data, setData] = useState(dataSource);
 
-  // const onSelectChange = newSelectedRowKeys => {
-  //   console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-  //   setSelectedRowKeys({ newSelectedRowKeys });
-  // };
+  const columns = [
+    {
+      title: 'Product Name',
+      dataIndex: 'Product',
+      key: 'Product',
+      width: 220,
+    },
+    {
+      title: 'Ticker',
+      dataIndex: 'Ticker',
+      key: 'Ticker',
+      align: 'center',
+      width: 80,
+    },
+    {
+      title: 'Exchange',
+      dataIndex: 'Exchange',
+      key: 'Exchange',
+      align: 'center',
+      width: 100,
+    },
+    {
+      title: 'Currency',
+      dataIndex: 'Currency',
+      key: 'Currency',
+      align: 'center',
+      width: 100,
+    },
+    {
+      title: 'Order Type',
+      dataIndex: 'OrderType',
+      key: 'OrderType',
+      width: 130,
+      render: type => (
+        <Select defaultValue={type} style={{ width: 98 }}>
+          <Option value="market">MARKET</Option>
+          <Option value="limit">LIMIT</Option>
+        </Select>
+      ),
+    },
+    {
+      title: 'Order Status',
+      dataIndex: 'OrderStatus',
+      key: 'OrderStatus',
+      width: 110,
+    },
+    {
+      title: 'Order Text',
+      dataIndex: 'OrderText',
+      key: 'OrderText',
+    },
+    {
+      title: 'Algo Strategy',
+      dataIndex: 'AlgoStrategy',
+      key: 'AlgoStrategy',
+    },
+    {
+      title: 'Side',
+      dataIndex: 'Side',
+      key: 'Side',
+    },
+    {
+      title: 'Time In Force',
+      dataIndex: 'TimeInForce',
+      key: 'TimeInForce',
+    },
+    {
+      title: 'Qty',
+      dataIndex: 'Qty',
+      key: 'Qty',
+      align: 'center',
+      width: 60,
+    },
+    {
+      title: 'Price',
+      dataIndex: 'Price',
+      key: 'Price',
+      render: (price, record, idx) => (
+        <PriceInput onChange={e => handleInput(e, record, idx)} value={price} />
+      ),
+    },
+    {
+      title: 'Date',
+      dataIndex: 'TimeStamp',
+      key: 'TimeStamp',
+      width: 150,
+      render: date => <span>{moment(date).format('YYYY/MM/DD hh:mm:ss')}</span>,
+    },
+  ];
+
+  const handleInput = (e, record, idx) => {
+    e.preventDefault();
+    const updatedData = R.update(
+      idx,
+      { ...record, Price: Number(e.target.value) },
+      data,
+    );
+    setData(updatedData);
+  };
 
   return (
     <PageWithTabs pageKey={2}>
@@ -225,17 +234,17 @@ const ExecutionPage = () => {
             <ButtonStyle>Generate Orders</ButtonStyle>
             <ButtonStyle danger>Cancel</ButtonStyle>
           </ButtonContainer>
-          <Table
-            rowSelection={{
-              type: 'checkbox',
-              // selectedRowKeys,
-              // onChange: onSelectChange,
-            }}
-            pagination={false}
-            columns={columns}
-            dataSource={dataSource}
-            scroll={{ y: 380 }}
-          />
+          <Form form={form} component={false}>
+            <Table
+              rowSelection={{
+                type: 'checkbox',
+              }}
+              pagination={false}
+              columns={columns}
+              dataSource={data}
+              scroll={{ y: 380 }}
+            />
+          </Form>
         </Container>
       </Wrapper>
     </PageWithTabs>

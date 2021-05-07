@@ -5,10 +5,8 @@ const ExecutionPage = lazy(() => import('Pages/ExecutionPage'));
 const PortfolioPage = lazy(() => import('Pages/PortfolioPage'));
 const TransactionsPage = lazy(() => import('Pages/TransactionsPage'));
 const OrdersPage = lazy(() => import('Pages/OrdersPage'));
-const MainPage = lazy(() => import('Pages/MainPage'));
 
 export const routePaths = {
-  main: '/main',
   orders: '/orders',
   execution: '/execution',
   portfolio: '/portfolio',
@@ -16,19 +14,12 @@ export const routePaths = {
 };
 
 const getRoutes = () => {
-  return(
+  return (
     <Switch>
       <Route
         exact
-        path='/'
-        render={props =>
-          <Redirect to={routePaths.main} />
-        }
-      />
-      <Route
-        exact
-        path={routePaths.main}
-        render={props => <MainPage {...props} />}
+        path="/"
+        render={props => <Redirect to={routePaths.orders} />}
       />
       <Route
         exact
