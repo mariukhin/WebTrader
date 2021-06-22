@@ -142,7 +142,6 @@ const OrdersPage = () => {
     dispatch(orderApiActions.getOrdersList());
   }, []);
 
-  console.log(ordersList && ordersList.data);
   return (
     <PageWithTabs pageKey={1}>
       <Wrapper>
@@ -165,14 +164,5 @@ const OrdersPage = () => {
     </PageWithTabs>
   );
 };
-
-// const mapStateToProps = state => ({
-//   ordersList: getOrdersList(state),
-//   error: getError(state),
-// });
-
-// const mapDispatchToProps = {
-//   getOrdersList: orderApiActions.getOrdersList,
-// };
 
 export default OrdersPage;
