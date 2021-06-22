@@ -1,5 +1,12 @@
 import { Table } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import * as orderApiActions from 'Api/order';
+import { getError, getOrdersList } from 'Selectors/order';
+
+import { FETCHING_STATE } from 'Utils/';
+
 import PageWithTabs from 'Components/PageWithTabs';
 import {
   Wrapper,
@@ -77,57 +84,65 @@ const dataSource = [
 const columns = [
   {
     title: 'Product Name',
-    dataIndex: 'Product',
-    key: 'Product',
+    dataIndex: 'product',
+    key: 'product',
   },
   {
     title: 'Ticker',
-    dataIndex: 'Ticker',
-    key: 'Ticker',
+    dataIndex: 'ticker',
+    key: 'ticker',
   },
   {
     title: 'Product Description',
-    dataIndex: 'MarketDescription',
-    key: 'MarketDescription',
+    dataIndex: 'marketDescription',
+    key: 'marketDescription',
   },
   {
     title: 'Exchange',
-    dataIndex: 'Exchange',
-    key: 'Exchange',
+    dataIndex: 'exchange',
+    key: 'exchange',
     align: 'center',
   },
   {
     title: 'Currency',
-    dataIndex: 'Currency',
-    key: 'Currency',
+    dataIndex: 'currency',
+    key: 'currency',
     align: 'center',
   },
   {
     title: 'Current Value',
-    dataIndex: 'CurrentValue',
-    key: 'CurrentValue',
+    dataIndex: 'currentValue',
+    key: 'currentValue',
     align: 'center',
   },
   {
     title: 'Traded Value',
-    dataIndex: 'TradedValue',
-    key: 'TradedValue',
+    dataIndex: 'tradedValue',
+    key: 'tradedValue',
     align: 'center',
   },
   {
     title: 'Wanted Value',
-    dataIndex: 'WantedValue',
-    key: 'WantedValue',
+    dataIndex: 'wantedValue',
+    key: 'wantedValue',
     align: 'center',
   },
   {
     title: 'Price',
-    dataIndex: 'Price',
-    key: 'Price',
+    dataIndex: 'price',
+    key: 'price',
   },
 ];
 
 const OrdersPage = () => {
+  const dispatch = useDispatch();
+  const ordersList = useSelector(getOrdersList);
+
+  useEffect(() => {
+    dispatch(orderApiActions.getOrdersList());
+  }, []);
+
+  console.log(ordersList && ordersList.data);
   return (
     <PageWithTabs pageKey={1}>
       <Wrapper>
@@ -138,11 +153,26 @@ const OrdersPage = () => {
             <FilterInput enterButton="Apply" size="medium" /* loading */ />
             <ResetButton>Reset</ResetButton>
           </FilterContainer>
-          <Table pagination={false} columns={columns} dataSource={dataSource} />
+          {ordersList && ordersList.state === FETCHING_STATE.LOADED && (
+            <Table
+              pagination={false}
+              columns={columns}
+              dataSource={ordersList.data}
+            />
+          )}
         </Container>
       </Wrapper>
     </PageWithTabs>
   );
 };
+
+// const mapStateToProps = state => ({
+//   ordersList: getOrdersList(state),
+//   error: getError(state),
+// });
+
+// const mapDispatchToProps = {
+//   getOrdersList: orderApiActions.getOrdersList,
+// };
 
 export default OrdersPage;
