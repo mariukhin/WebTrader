@@ -11,13 +11,16 @@ namespace WebTrader_Backend.Controllers
 	[ApiController]
 	public class OrderController : ControllerBase
 	{
+		string name = "user";
+		string model = "model";
+
 		// GET: api/orders
 		[HttpGet]
 		[Route("api/orders")]
 		public Task<IEnumerable<SingleOrder>> GetOrders()
 		{
 			OrderDBContext service = new OrderDBContext();
-			var orders = service.GetOrdersAsync("user", "model");
+			var orders = service.GetOrdersAsync(name, model);
 			return orders;
 		}
 
@@ -27,7 +30,7 @@ namespace WebTrader_Backend.Controllers
 		public Task<IEnumerable<SingleOrder>> GetExecution()
 		{
 			OrderDBContext service = new OrderDBContext();
-			var orders = service.GenerateOrdersAsync("user", "model");
+			var orders = service.GenerateOrdersAsync(name, model);
 			return orders;
 		}
 
@@ -37,8 +40,8 @@ namespace WebTrader_Backend.Controllers
 		public Task<bool> Connect()
 		{
 			OrderDBContext service = new OrderDBContext();
-			service.CreateAndConnectExecutionInterfaceAsync("user", "model");
-			var connected = service.IsExecutionInterfaceConnectedAsync("user", "model");
+			service.CreateAndConnectExecutionInterfaceAsync(name, model);
+			var connected = service.IsExecutionInterfaceConnectedAsync(name, model);
 			return connected;
 		}
 
@@ -48,8 +51,8 @@ namespace WebTrader_Backend.Controllers
 		public Task<bool> Disconnect()
 		{
 			OrderDBContext service = new OrderDBContext();
-			service.DisconnectExecutionInterfaceAsync("user", "model");
-			var connected = service.IsExecutionInterfaceConnectedAsync("user", "model");
+			service.DisconnectExecutionInterfaceAsync(name, model);
+			var connected = service.IsExecutionInterfaceConnectedAsync(name, model);
 			return connected;
 		}
 	}

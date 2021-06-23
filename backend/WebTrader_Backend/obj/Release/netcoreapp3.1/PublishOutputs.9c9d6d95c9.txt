@@ -1,0 +1,11 @@
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\WebTrader_Backend.exe
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\WebTrader_Backend.dll
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\WebTrader_Backend.runtimeconfig.json
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\WebTrader_Backend.pdb
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Bcl.HashCode.dll
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
+E:\Projects\WebTrader\backend\WebTrader_Backend\obj\Release\netcoreapp3.1\PubTmp\Out\WebTrader_Backend.deps.json

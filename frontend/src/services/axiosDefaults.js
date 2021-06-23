@@ -1,11 +1,6 @@
 import axios from 'axios';
 
-import { isDev } from 'Utils/';
-
-const devUrl = 'http://localhost:49187/api';
-const prodUrl = '';
-
-export const getBaseUrl = () => (isDev ? devUrl : prodUrl);
+import { getBaseUrl } from 'Utils/';
 
 axios.defaults.baseURL = getBaseUrl();
 

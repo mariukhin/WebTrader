@@ -6,3 +6,8 @@ export const FETCHING_STATE = {
   UPDATED: 'UPDATED',
   ERROR: 'ERROR',
 };
+
+const devUrl = 'http://localhost:49187/api';
+const prodUrl = 'https://webtraderapi.azurewebsites.net/api';
+
+export const getBaseUrl = () => (isDev ? devUrl : prodUrl);
