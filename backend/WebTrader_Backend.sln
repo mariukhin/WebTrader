@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTrader_Backend", "WebTrader_Backend\WebTrader_Backend.csproj", "{FAD9B08D-6685-467D-BB3A-3CE52770C576}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAD9B08D-6685-467D-BB3A-3CE52770C576}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAD9B08D-6685-467D-BB3A-3CE52770C576}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAD9B08D-6685-467D-BB3A-3CE52770C576}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAD9B08D-6685-467D-BB3A-3CE52770C576}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6ACE753A-5F1F-4626-84E1-0912B25C6DFE}
+	EndGlobalSection
+EndGlobal

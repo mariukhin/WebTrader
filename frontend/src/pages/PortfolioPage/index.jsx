@@ -1,60 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Input, InputNumber, Popconfirm, Form, Typography } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+
+import * as portfolioApiActions from 'Api/portfolio';
+import { getPortfolioList } from 'Selectors/portfolio';
+
+import { FETCHING_STATE } from 'Utils/';
+
 import PageWithTabs from 'Components/PageWithTabs';
 import { Wrapper, Container } from './styledComponents';
-
-const dataSource = [
-  {
-    key: '1',
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Amount: 1,
-    AvgPrice: 0,
-    BrokerAmount: 0,
-    BrokerAvgPrice: 0,
-    PL: 0.0,
-  },
-  {
-    key: '2',
-    Product: 'AXP US Equity_US_USD_USD',
-    Ticker: 'AXP',
-    Amount: 3,
-    AvgPrice: 0,
-    BrokerAmount: 0,
-    BrokerAvgPrice: 0,
-    PL: 0.0,
-  },
-  {
-    key: '3',
-    Product: 'APH US Equity_US_USD_USD',
-    Ticker: 'APH',
-    Amount: 14,
-    AvgPrice: 0,
-    BrokerAmount: 0,
-    BrokerAvgPrice: 0,
-    PL: 0.0,
-  },
-  {
-    key: '4',
-    Product: 'ADI US Equity_US_USD_USD',
-    Ticker: 'ADI',
-    Amount: 12,
-    AvgPrice: 0,
-    BrokerAmount: 0,
-    BrokerAvgPrice: 0,
-    PL: 0.0,
-  },
-  {
-    key: '5',
-    Product: 'AMA US Equity_US_USD_USD',
-    Ticker: 'AMA',
-    Amount: 10,
-    AvgPrice: 0,
-    BrokerAmount: 0,
-    BrokerAvgPrice: 0,
-    PL: 0.0,
-  },
-];
 
 const EditableCell = ({
   editing,
@@ -93,8 +47,15 @@ const EditableCell = ({
 
 const PortfolioPage = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(dataSource);
+  const [data, setData] = useState(null);
   const [editingKey, setEditingKey] = useState('');
+
+  const dispatch = useDispatch();
+  const portfolioList = useSelector(getPortfolioList);
+
+  useEffect(() => {
+    dispatch(portfolioApiActions.getPortfolioList());
+  }, []);
 
   const isEditing = record => record.key === editingKey;
 
@@ -140,49 +101,49 @@ const PortfolioPage = () => {
   const columns = [
     {
       title: 'Product Name',
-      dataIndex: 'Product',
-      key: 'Product',
+      dataIndex: 'product',
+      key: 'product',
       editable: true,
     },
     {
       title: 'Ticker',
-      dataIndex: 'Ticker',
-      key: 'Ticker',
+      dataIndex: 'ticker',
+      key: 'ticker',
       align: 'center',
       editable: true,
     },
     {
       title: 'Amount',
-      dataIndex: 'Amount',
-      key: 'Amount',
+      dataIndex: 'amount',
+      key: 'amount',
       align: 'center',
       editable: true,
     },
     {
       title: 'Avg. Price',
-      dataIndex: 'AvgPrice',
-      key: 'AvgPrice',
+      dataIndex: 'avgPrice',
+      key: 'avgPrice',
       align: 'center',
       editable: true,
     },
     {
       title: 'Broker Amount',
-      dataIndex: 'BrokerAmount',
-      key: 'BrokerAmount',
+      dataIndex: 'brokerAmount',
+      key: 'brokerAmount',
       align: 'center',
       editable: true,
     },
     {
       title: 'Broker Avg. Price',
-      dataIndex: 'BrokerAvgPrice',
-      key: 'BrokerAvgPrice',
+      dataIndex: 'brokerAvgPrice',
+      key: 'brokerAvgPrice',
       align: 'center',
       editable: true,
     },
     {
       title: 'PL %',
-      dataIndex: 'PL',
-      key: 'PL',
+      dataIndex: 'pl',
+      key: 'pl',
       align: 'center',
       editable: true,
     },
@@ -237,18 +198,20 @@ const PortfolioPage = () => {
     <PageWithTabs pageKey={3}>
       <Wrapper>
         <Container>
-          <Form form={form} component={false}>
-            <Table
-              components={{
-                body: {
-                  cell: EditableCell,
-                },
-              }}
-              pagination={false}
-              columns={mergedColumns}
-              dataSource={data}
-            />
-          </Form>
+          {portfolioList && portfolioList.state === FETCHING_STATE.LOADED && (
+            <Form form={form} component={false}>
+              <Table
+                components={{
+                  body: {
+                    cell: EditableCell,
+                  },
+                }}
+                pagination={false}
+                columns={mergedColumns}
+                dataSource={portfolioList.data}
+              />
+            </Form>
+          )}
         </Container>
       </Wrapper>
     </PageWithTabs>

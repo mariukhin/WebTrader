@@ -1,7 +1,15 @@
 import { Table, Select, Form } from 'antd';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as R from 'ramda';
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import * as executionApiActions from 'Api/execution';
+import { getExecutionList, getConnectedStatus } from 'Selectors/execution';
+
+import { FETCHING_STATE } from 'Utils/';
+
 import PageWithTabs from 'Components/PageWithTabs';
 import {
   Wrapper,
@@ -14,147 +22,50 @@ import {
 
 const { Option } = Select;
 
-const dataSource = [
-  {
-    key: '1',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '2',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'MARKET',
-    Side: 'SELL',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 0,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '3',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'SELL',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '4',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'MARKET',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 0,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '5',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '6',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-];
-
 const ExecutionPage = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(dataSource);
+  const [data, setData] = useState(null);
+
+  const dispatch = useDispatch();
+  const executionList = useSelector(getExecutionList);
+  const isConnected = useSelector(getConnectedStatus);
+
+  useEffect(() => {
+    dispatch(executionApiActions.getExecutionList());
+  }, []);
 
   const columns = [
     {
       title: 'Product Name',
-      dataIndex: 'Product',
-      key: 'Product',
+      dataIndex: 'product',
+      key: 'product',
       width: 220,
     },
     {
       title: 'Ticker',
-      dataIndex: 'Ticker',
-      key: 'Ticker',
+      dataIndex: 'ticker',
+      key: 'ticker',
       align: 'center',
       width: 80,
     },
     {
       title: 'Exchange',
-      dataIndex: 'Exchange',
-      key: 'Exchange',
+      dataIndex: 'exchange',
+      key: 'exchange',
       align: 'center',
       width: 100,
     },
     {
       title: 'Currency',
-      dataIndex: 'Currency',
-      key: 'Currency',
+      dataIndex: 'currency',
+      key: 'currency',
       align: 'center',
       width: 100,
     },
     {
       title: 'Order Type',
-      dataIndex: 'OrderType',
-      key: 'OrderType',
+      dataIndex: 'orderType',
+      key: 'orderType',
       width: 130,
       render: type => (
         <Select defaultValue={type} style={{ width: 98 }}>
@@ -165,49 +76,49 @@ const ExecutionPage = () => {
     },
     {
       title: 'Order Status',
-      dataIndex: 'OrderStatus',
-      key: 'OrderStatus',
+      dataIndex: 'orderStatus',
+      key: 'orderStatus',
       width: 110,
     },
     {
       title: 'Order Text',
-      dataIndex: 'OrderText',
-      key: 'OrderText',
+      dataIndex: 'orderText',
+      key: 'orderText',
     },
     {
       title: 'Algo Strategy',
-      dataIndex: 'AlgoStrategy',
-      key: 'AlgoStrategy',
+      dataIndex: 'algoStrategy',
+      key: 'algoStrategy',
     },
     {
       title: 'Side',
-      dataIndex: 'Side',
-      key: 'Side',
+      dataIndex: 'side',
+      key: 'side',
     },
     {
       title: 'Time In Force',
-      dataIndex: 'TimeInForce',
-      key: 'TimeInForce',
+      dataIndex: 'timeInForce',
+      key: 'timeInForce',
     },
     {
       title: 'Qty',
-      dataIndex: 'Qty',
-      key: 'Qty',
+      dataIndex: 'qty',
+      key: 'qty',
       align: 'center',
       width: 60,
     },
     {
       title: 'Price',
-      dataIndex: 'Price',
-      key: 'Price',
+      dataIndex: 'price',
+      key: 'price',
       render: (price, record, idx) => (
         <PriceInput onChange={e => handleInput(e, record, idx)} value={price} />
       ),
     },
     {
       title: 'Date',
-      dataIndex: 'TimeStamp',
-      key: 'TimeStamp',
+      dataIndex: 'timeStamp',
+      key: 'timeStamp',
       width: 150,
       render: date => <span>{moment(date).format('YYYY/MM/DD hh:mm:ss')}</span>,
     },
@@ -229,22 +140,33 @@ const ExecutionPage = () => {
         <Container>
           <ShowTradersCheckbox>Show Closeout Traders</ShowTradersCheckbox>
           <ButtonContainer>
-            <ButtonStyle type="primary">Connect</ButtonStyle>
+            <ButtonStyle
+              type="primary"
+              onClick={e =>
+                isConnected
+                  ? dispatch(executionApiActions.disconnectExecution())
+                  : dispatch(executionApiActions.connectExecution())
+              }
+            >
+              {isConnected ? 'Disconnect' : 'Connect'}
+            </ButtonStyle>
             <ButtonStyle>Execute</ButtonStyle>
             <ButtonStyle>Generate Orders</ButtonStyle>
             <ButtonStyle danger>Cancel</ButtonStyle>
           </ButtonContainer>
-          <Form form={form} component={false}>
-            <Table
-              rowSelection={{
-                type: 'checkbox',
-              }}
-              pagination={false}
-              columns={columns}
-              dataSource={data}
-              scroll={{ y: 380 }}
-            />
-          </Form>
+          {executionList && executionList.state === FETCHING_STATE.LOADED && (
+            <Form form={form} component={false}>
+              <Table
+                rowSelection={{
+                  type: 'checkbox',
+                }}
+                pagination={false}
+                columns={columns}
+                dataSource={executionList.data}
+                scroll={{ y: 380 }}
+              />
+            </Form>
+          )}
         </Container>
       </Wrapper>
     </PageWithTabs>

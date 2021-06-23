@@ -24,7 +24,7 @@ export const ShowTradersCheckbox = styled(Checkbox)`
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 26%;
+  width: 29%;
   margin-bottom: 15px;
 `;
 
