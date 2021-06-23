@@ -6,11 +6,7 @@ import * as R from 'ramda';
 import { useDispatch, useSelector } from 'react-redux';
 
 import * as executionApiActions from 'Api/execution';
-import {
-  getError,
-  getExecutionList,
-  getConnectedStatus,
-} from 'Selectors/execution';
+import { getExecutionList, getConnectedStatus } from 'Selectors/execution';
 
 import { FETCHING_STATE } from 'Utils/';
 
@@ -26,114 +22,9 @@ import {
 
 const { Option } = Select;
 
-const dataSource = [
-  {
-    key: '1',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '2',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'MARKET',
-    Side: 'SELL',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 0,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '3',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'SELL',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '4',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'MARKET',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 0,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '5',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-  {
-    key: '6',
-    TimeStamp: Date.now(),
-    Execute: true,
-    Product: 'APD US Equity_US_USD_USD',
-    Ticker: 'APD',
-    Exchange: 'US',
-    Currency: 'USD',
-    OrderType: 'LIMIT',
-    Side: 'BUY',
-    TimeInForce: 'GTC',
-    Qty: 1,
-    Price: 284.1,
-    OrderStatus: 'UNKNOWN',
-    OrderText: 'Not in market',
-    AlgoStrategy: 'NONE',
-  },
-];
-
 const ExecutionPage = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState(dataSource);
+  const [data, setData] = useState(null);
 
   const dispatch = useDispatch();
   const executionList = useSelector(getExecutionList);
